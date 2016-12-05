@@ -1,0 +1,60 @@
+diff --git a/bta/av/bta_av_cfg.c b/bta/av/bta_av_cfg.c
+index a7db8ff..3a8fb90 100644
+--- a/bta/av/bta_av_cfg.c
++++ b/bta/av/bta_av_cfg.c
+@@ -51,7 +51,7 @@ const UINT32  bta_av_meta_caps_co_ids[] = {
+ /* Flushing partial avdtp packets can cause some headsets to disconnect the link
+    if receiving partial a2dp frames */
+ const UINT16  bta_av_audio_flush_to[] = {
+-     0, /* 1 stream */
++     80, /* 1 stream */
+      0, /* 2 streams */
+      0, /* 3 streams */
+      0, /* 4 streams */
+diff --git a/bta/dm/bta_dm_cfg.c b/bta/dm/bta_dm_cfg.c
+index 744a6fc..d3837ae 100644
+--- a/bta/dm/bta_dm_cfg.c
++++ b/bta/dm/bta_dm_cfg.c
+@@ -83,7 +83,7 @@ const tBTA_DM_CFG bta_dm_cfg =
+ 
+ #ifndef BTA_AV_ROLE
+ /* By default, AV role (backward BTA_MASTER_ROLE_PREF) */
+-#define BTA_AV_ROLE BTA_MASTER_ROLE_PREF
++#define BTA_AV_ROLE BTA_MASTER_ROLE_ONLY
+ #endif
+ 
+ #ifndef BTA_PANU_ROLE
+diff --git a/btif/co/bta_av_co.c b/btif/co/bta_av_co.c
+index e410f14..f4453ca 100644
+--- a/btif/co/bta_av_co.c
++++ b/btif/co/bta_av_co.c
+@@ -62,7 +62,7 @@
+ #define BTA_AV_CO_SBC_MIN_BITPOOL_OFF  5
+ #define BTA_AV_CO_SBC_MAX_BITPOOL_OFF  6
+ 
+-#define BTA_AV_CO_SBC_MAX_BITPOOL  53
++#define BTA_AV_CO_SBC_MAX_BITPOOL  26
+ 
+ /* SCMS-T protect info */
+ const UINT8 bta_av_co_cp_scmst[BTA_AV_CP_INFO_LEN] = "\x02\x02\x00";
+diff --git a/btif/src/btif_media_task.c b/btif/src/btif_media_task.c
+index b6f3f0c..cb57eac 100644
+--- a/btif/src/btif_media_task.c
++++ b/btif/src/btif_media_task.c
+@@ -131,7 +131,7 @@ enum {
+    (1000/TICKS_PER_SEC) (10) */
+ 
+ #define BTIF_MEDIA_TIME_TICK                     (20 * BTIF_MEDIA_NUM_TICK)
+-#define A2DP_DATA_READ_POLL_MS    (BTIF_MEDIA_TIME_TICK / 2)
++#define A2DP_DATA_READ_POLL_MS    (BTIF_MEDIA_TIME_TICK / 4)
+ #define BTIF_SINK_MEDIA_TIME_TICK                (20 * BTIF_MEDIA_NUM_TICK)
+ 
+ 
+@@ -184,7 +184,7 @@ enum {
+ #define MAX_OUTPUT_A2DP_FRAME_QUEUE_SZ 18
+ 
+ #ifndef MAX_PCM_FRAME_NUM_PER_TICK
+-#define MAX_PCM_FRAME_NUM_PER_TICK     14
++#define MAX_PCM_FRAME_NUM_PER_TICK     8
+ #endif
+ 
